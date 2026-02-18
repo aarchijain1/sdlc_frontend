@@ -1,0 +1,12 @@
+/* src/index.css — minimal entry point reset */
+/* All app styles live in src/styles/                */
+/* global.css  — variables, resets, animations       */
+/* LoginPage.css — login page styles                 */
+/* Dashboard.css — dashboard styles                  */
+/* Chatbot.css   — chatbot styles                    */
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
