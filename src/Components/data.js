@@ -177,12 +177,7 @@ export const SEED_HISTORY = [
   },
 ];
 
-export const STAT_DATA = [
-  { label: "Active Sprints", value: "12", delta: "+8%", positive: true, color: "#3B5BDB" },
-  { label: "Tests Passed", value: "97%", delta: "+3%", positive: true, color: "#059669" },
-  { label: "PRs Merged", value: "48", delta: "-5%", positive: false, color: "#D97706" },
-  { label: "Deployments", value: "24", delta: "+12%", positive: true, color: "#6741D9" },
-];
+export const STAT_DATA = [];
 
 export const CAPABILITIES = [
   { icon: "code", title: "Code Intelligence", desc: "AI-assisted reviews, refactoring & generation across your full codebase.", color: "#3B5BDB" },
