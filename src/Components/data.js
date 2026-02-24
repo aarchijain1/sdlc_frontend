@@ -1,5 +1,5 @@
 export const DUMMY_USERS = [
-  { id: 1, username: "demo", password: "demo123", name: "Arjun Sharma", role: "Senior Engineer", initials: "AS" },
+  { id: 1, username: "demo", password: "demo123", name: "User", role: "Senior Engineer", initials: "U" },
   { id: 2, username: "admin", password: "admin123", name: "Priya Nair", role: "Engineering Manager", initials: "PN" },
 ];
 

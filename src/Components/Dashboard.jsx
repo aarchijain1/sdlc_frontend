@@ -63,10 +63,11 @@ function ActivityRow({ keyName, title, desc, time, color }) {
 }
 
 /* ── Main component ── */
-export default function Dashboard({ user }) {
+export default function Dashboard({ user, onLogout }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    onLogout();
     navigate('/login');
   };
 
