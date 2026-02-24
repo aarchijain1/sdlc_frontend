@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/Dashboard.css";
 import {
   BoltIcon, SearchIcon, BellIcon, SettingsIcon, ChatIcon, LogoutIcon,
@@ -62,7 +63,17 @@ function ActivityRow({ keyName, title, desc, time, color }) {
 }
 
 /* ── Main component ── */
-export default function Dashboard({ user, onOpenChat, onLogout }) {
+export default function Dashboard({ user }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
+
+  const handleOpenChat = () => {
+    navigate('/chatbot');
+  };
+
   return (
     <div className="dash-root">
       {/* ── Top Nav ── */}
@@ -100,7 +111,7 @@ export default function Dashboard({ user, onOpenChat, onLogout }) {
               <div className="dash-nav__user-role">{user.role}</div>
             </div>
           </div>
-          <button className="dash-nav__logout" onClick={onLogout}>
+          <button className="dash-nav__logout" onClick={handleLogout}>
             <LogoutIcon />
             <span>Logout</span>
           </button>
@@ -125,7 +136,7 @@ export default function Dashboard({ user, onOpenChat, onLogout }) {
               Your SDLC pipeline is healthy — 12 sprints active, 97% test pass rate.
             </p>
           </div>
-          <button className="dash-hero__cta" onClick={onOpenChat}>
+          <button className="dash-hero__cta" onClick={handleOpenChat}>
             <ChatIcon />
             <div>
               <div className="dash-hero__cta-title">Ask Agentic AI</div>
@@ -148,11 +159,11 @@ export default function Dashboard({ user, onOpenChat, onLogout }) {
                 <div className="dash-panel__title">AI Capabilities</div>
                 <div className="dash-panel__sub">One assistant. Full pipeline intelligence.</div>
               </div>
-              <button className="dash-panel__link" onClick={onOpenChat}>Ask AI →</button>
+              <button className="dash-panel__link" onClick={handleOpenChat}>Ask AI →</button>
             </div>
             <div className="cap-grid">
               {CAPABILITIES.map(c => (
-                <CapCard key={c.icon} keyName={c.icon} title={c.title} desc={c.desc} color={c.color} onClick={onOpenChat} />
+                <CapCard key={c.icon} keyName={c.icon} title={c.title} desc={c.desc} color={c.color} onClick={handleOpenChat} />
               ))}
             </div>
           </div>

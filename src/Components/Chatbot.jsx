@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/global.css";
 import "../styles/Chatbot.css";
 import {
   BoltIcon, SendIcon, PlusIcon, CloseIcon, CopyIcon, ThumbUp, ThumbDown,
@@ -10,6 +12,7 @@ import {
   THINKING_CHAINS, AI_RESPONSES, getNextAIResponse, getNextThinkingChain,
   SEED_HISTORY
 } from "./data";
+import { useTheme } from "../contexts/ThemeContext";
 
 /* ── Markdown renderer ── */
 function renderMD(text) {
@@ -259,7 +262,9 @@ function Welcome({ onSuggest }) {
 }
 
 /* ── Main Chatbot ── */
-export default function Chatbot({ user, onGoHome }) {
+export default function Chatbot({ user }) {
+  const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [history,    setHistory]    = useState(SEED_HISTORY);
   const [activeId,   setActiveId]   = useState(null);
   const [input,      setInput]      = useState("");
@@ -301,13 +306,17 @@ export default function Chatbot({ user, onGoHome }) {
   const onKey=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send();}};
   const canSend = (input.trim()||files.length>0)&&!generating;
 
+  const handleGoHome = () => {
+    navigate('/dashboard');
+  };
+
   return (
     <div className="chat-root">
       <Sidebar
         history={history} activeId={activeId}
         onSelect={id=>setActiveId(id)} onNew={()=>setActiveId(null)}
         onDelete={id=>{setHistory(h=>h.filter(c=>c.id!==id));if(activeId===id)setActiveId(null);}}
-        user={user} onHome={onGoHome}
+        user={user} onHome={handleGoHome}
         open={sidebarOpen} onClose={()=>setSidebarOpen(false)}
       />
 
@@ -322,6 +331,13 @@ export default function Chatbot({ user, onGoHome }) {
             <span className="chat-topbar__title">{active?.title||"New Conversation"}</span>
           </div>
           <div className="chat-topbar__right">
+            <button 
+              className="chat-theme-toggle-btn" 
+              onClick={toggleTheme}
+              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+            >
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
             <div className="chat-model-badge"><SparkleIcon/> Vertex AI · Agentic SDLC</div>
             {active&&<span className="chat-msg-count">{msgs.length} messages</span>}
           </div>
