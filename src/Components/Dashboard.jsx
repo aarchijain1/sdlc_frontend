@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "../styles/Dashboard.css";
 import {
   BoltIcon, SearchIcon, BellIcon, SettingsIcon, ChatIcon, LogoutIcon,
@@ -7,6 +8,7 @@ import {
 import {
   STAT_DATA, CAPABILITIES, RECENT_ACTIVITY
 } from "./data";
+import Settings from "./Settings";
 
 const CAP_ICONS = { 
   code: <CodeIcon />, 
@@ -65,6 +67,7 @@ function ActivityRow({ keyName, title, desc, time, color }) {
 /* ── Main component ── */
 export default function Dashboard({ user, onLogout }) {
   const navigate = useNavigate();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const handleLogout = () => {
     onLogout();
@@ -73,6 +76,14 @@ export default function Dashboard({ user, onLogout }) {
 
   const handleOpenChat = () => {
     navigate('/chatbot');
+  };
+
+  const handleOpenSettings = () => {
+    setIsSettingsOpen(true);
+  };
+
+  const handleCloseSettings = () => {
+    setIsSettingsOpen(false);
   };
 
   return (
@@ -102,7 +113,7 @@ export default function Dashboard({ user, onLogout }) {
             <BellIcon />
             <span className="dash-nav__notif-dot" />
           </button>
-          <button className="dash-nav__icon-btn" aria-label="Settings">
+          <button className="dash-nav__icon-btn" aria-label="Settings" onClick={handleOpenSettings}>
             <SettingsIcon />
           </button>
           <div className="dash-nav__user">
@@ -200,6 +211,13 @@ export default function Dashboard({ user, onLogout }) {
           </div>
         </div>
       </main>
+      
+      {/* Settings Modal */}
+      <Settings 
+        isOpen={isSettingsOpen} 
+        onClose={handleCloseSettings} 
+        user={user} 
+      />
     </div>
   );
 }
